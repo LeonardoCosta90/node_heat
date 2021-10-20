@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+interface IAcessTokenResponse {
+  access_token: string;
+}
 class AuthenticateUserService {
   async execute(code: string) {
     const url = 'https://github.com/login/oauth/access_token';
 
-    const res = await axios.post(url, null, {
+    const { data: acessTokenResponse } = await axios.post<IAcessTokenResponse>(url, null, {
       params: {
         client_id: process.env.GITHUB_CLIENT_ID,
         client_secret: process.env.GITHUB_CLIENT_SECRET,
@@ -15,7 +18,13 @@ class AuthenticateUserService {
       },
     });
 
-    return res.data;
+    const response = await axios.get('http://api.github.com/user', {
+      headers: {
+        authorization: `Bearer ${acessTokenResponse.access_token}`,
+      },
+    });
+
+    return response.data;
   }
 }
 
