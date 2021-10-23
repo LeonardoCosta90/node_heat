@@ -1,23 +1,93 @@
 {
-   "extends": [
-      "airbnb-typescript/base"
-   ],
-   "parser": "@typescript-eslint/parser",
-   "parserOptions": {
-      "project": "./tsconfig.json"
-   },
-   "rules": {
-      "class-methods-use-this": "off",
-      "@typescript-eslint/no-unused-vars": [
-         "error",
-         {
-            "args": "none"
-         }
-      ],
-      "max-len": [
-         "warn",
-         120
-      ],
-      "linebreak-style": "off"
-   }
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "plugins": [
+    "prettier",
+    "@typescript-eslint/eslint-plugin",
+    "eslint-plugin-import-helpers"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "ignorePatterns": [
+    ".eslintrc.js"
+  ],
+  "rules": {
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/extensions": [
+      0,
+      ".ts"
+    ],
+    "no-unused-vars": [
+      2,
+      {
+        "argsIgnorePattern": "_"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      {
+        "args": "none",
+        "argsIgnorePattern": "_"
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": [
+          "PascalCase"
+        ],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ],
+    "class-methods-use-this": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always", // new line between groups
+        "groups": [
+          "module",
+          "/^@server\/shared/",
+          "/^@/",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ],
+    "linebreak-style": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ]
+  }
 }

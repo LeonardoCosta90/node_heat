@@ -10,4 +10,5 @@ test
 babel.config.js
 docs
 ormconfig.ts
-src/infrastructure/database/migrations
+*.js
+*.json
